@@ -28,4 +28,16 @@ describe Integrity::Notifier::Growl do
       klass.notify_of_build(mock_build, notifier_config)
     end
   end
+  
+  describe "generating a form for configuration" do
+      describe "with a field for the recipients" do
+        it "should have the proper name, id and label" do
+          the_form.should have_textfield("growl_notifier_addresses").named("notifiers[Growl][addresses]").with_label("Addresses").with_value(nil)
+        end
+
+        it "should use the config's ip value if available" do
+          the_form(:config => { 'addresses' => '127.0.0.1' }).should have_textfield("growl_notifier_addresses").with_value("127.0.0.1")
+        end
+      end
+    end
 end

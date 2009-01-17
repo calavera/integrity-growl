@@ -8,14 +8,21 @@ module Integrity
       
       def initialize(build, config = {})
         @growl = Growl.new "localhost", "Integrity", ["Integrity build notification"]
+        @addresses = config[:addresses].nil? ? [] : config.delete(:addresses).split(/,|\s+/)
+        @growl = @addresses.map do |address|
+          Growl.new address, "Integrity", ["Integrity build notification"]
+        end
         super
       end
       
-      def to_haml
+      def self.to_haml
+        File.read File.dirname(__FILE__) / "config.haml"
       end
       
       def deliver!
-        @growl.notify "Integrity build notification", short_message, message
+        @growl.each do |g|
+          g.notify "Integrity build notification", short_message, message
+        end
       end
       
       def message
