@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email             = 'calavera@apache.org'
   s.authors           = ['David Calavera']
   s.has_rdoc          = false
-  s.files             = %w( README.markdown lib/notifier/growl.rb lib/notifiers/config.haml )
+  s.files             = %w( README.markdown lib/notifier/growl.rb lib/notifier/config.haml )
  
   s.add_dependency 'foca-integrity'
   s.add_dependency 'ruby-growl'
